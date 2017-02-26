@@ -40,9 +40,9 @@
     					</div>
   					</div>
 					<div class="form-group">
-    					<label for="name" class="col-sm-2 control-label">Subcategory</label>
+    					<label for="subcategory" class="col-sm-2 control-label">Subcategory</label>
     					<div class="col-sm-10">
-      						<input type="text" class="form-control" name="subcategory" id="name">
+      						<form:input type="text" class="form-control" path="name" id="subcategory"/>
     					</div>
   					</div>
   					<div class="form-group">

@@ -25,7 +25,8 @@ import ua.com.shop.service.SubcategoryService;
 @RequestMapping("/admin/subcategory")
 @SessionAttributes("subcategory")
 public class SubcategoryController {
-	@Autowired CategoryService categoryService;
+	@Autowired 
+	private CategoryService categoryService;
 	
 	@Autowired
 	private SubcategoryService subcategoryService;

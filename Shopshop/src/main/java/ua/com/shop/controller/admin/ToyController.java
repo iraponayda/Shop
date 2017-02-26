@@ -37,22 +37,22 @@ import ua.com.shop.service.ToyService;
 public class ToyController {
 	
 	@Autowired
-	ToyService toyService;
+	private ToyService toyService;
 	
 	@Autowired
-	ProducerService producerService;
+	private ProducerService producerService;
 	
 	@Autowired
-	SubcategoryService subcategoryService;
+	private SubcategoryService subcategoryService;
 	
 	@Autowired
-	GenderService genderService;
+	private GenderService genderService;
 	
 	@Autowired
-	MaterialService materialService;
+	private MaterialService materialService;
 	
 	@Autowired
-	AgeService ageService;
+	private AgeService ageService;
 	
 	@InitBinder("toy")
 	protected void bind(WebDataBinder binder){
@@ -92,7 +92,11 @@ public class ToyController {
 		toyService.save(toy);
 		return "redirect:/admin/toy";
 	}
-	
+	@GetMapping("/update/{id}")
+	public String update(@PathVariable int id, Model model){
+		model.addAttribute("toy", toyService.findOne(id));
+		return show(model);
+	}
 	
 
 }

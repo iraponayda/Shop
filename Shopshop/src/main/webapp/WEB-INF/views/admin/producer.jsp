@@ -39,9 +39,9 @@
     					</div>
   					</div>
 					<div class="form-group">
-    					<label for="name" class="col-sm-2 control-label">Producer</label>
+    					<label for="producer" class="col-sm-2 control-label">Producer</label>
     					<div class="col-sm-10">
-      						<input type="text" class="form-control" name="producer" id="name">
+      						<form:input type="text" class="form-control" path="name" id="producer"/>
     					</div>
   					</div>
   					<div class="form-group">

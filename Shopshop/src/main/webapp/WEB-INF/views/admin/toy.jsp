@@ -41,9 +41,9 @@
     					</div>
   					</div>
 					<div class="form-group">
-    					<label for="name" class="col-sm-2 control-label">Toy</label>
+    					<label for="toy" class="col-sm-2 control-label">Toy</label>
     					<div class="col-sm-10">
-      						<input type="text" class="form-control" name="toy" id="name">
+      						<form:input type="text" class="form-control" path="name" id="toy"/>
     					</div>
   					</div>
   					<div class="form-group">

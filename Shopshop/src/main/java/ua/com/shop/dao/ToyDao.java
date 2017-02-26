@@ -20,7 +20,8 @@ public interface ToyDao extends JpaRepository<Toy, Integer>{
 @Query("SELECT t FROM Toy t LEFT JOIN FETCH t.subcategory LEFT JOIN FETCH t.producer LEFT JOIN FETCH t.gender LEFT JOIN FETCH t.age LEFT JOIN FETCH t.material")
 List<Toy> findAll();
 
-
+@Query("SELECT t FROM Toy t LEFT JOIN FETCH t.subcategory LEFT JOIN FETCH t.producer LEFT JOIN FETCH t.gender LEFT JOIN FETCH t.age LEFT JOIN FETCH t.material WHERE t.id = ?1")
+Toy findOne(int id);
 
 	 
 }
