@@ -2,6 +2,8 @@ package ua.com.shop.service;
 
 import java.util.List;
 
+
+import ua.com.shop.entity.Country;
 import ua.com.shop.entity.Producer;
 
 public interface ProducerService {
@@ -9,4 +11,5 @@ public interface ProducerService {
 	List<Producer> findAll();
 	Producer findOne(int id);
 	void delete(int id);
+	Producer findUnique(String name, Country country);
 }

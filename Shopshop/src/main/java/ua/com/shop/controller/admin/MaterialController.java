@@ -1,9 +1,14 @@
 package ua.com.shop.controller.admin;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import ua.com.shop.entity.Age;
 import ua.com.shop.entity.Material;
 import ua.com.shop.service.MaterialService;
+import ua.com.shop.validator.MaterialValidator;
 
 
 
@@ -22,6 +29,11 @@ import ua.com.shop.service.MaterialService;
 public class MaterialController {
 	@Autowired
 	private MaterialService materialService;
+	
+	@InitBinder("material")
+	protected void bind(WebDataBinder binder){
+		binder.setValidator(new MaterialValidator(materialService));
+	}
 	
 	@ModelAttribute("material")
 	public Material getForm(){
@@ -40,9 +52,14 @@ public class MaterialController {
 	}
 	
 	@PostMapping
-	public String save(@ModelAttribute("material") Material material, SessionStatus status){
+	public String save(@ModelAttribute("material") @Valid Material material, BindingResult br, Model model, SessionStatus status){
+		
+		if(br.hasErrors()){
+			return show(model);
+		}
 		materialService.save(material);
 		status.setComplete();
+
 		return "redirect:/admin/material";
 	}
 	

@@ -36,5 +36,11 @@ public class GenderServiceImpl implements GenderService{
 	}
 
 
+	public Gender findByName(String gender) {
+		// TODO Auto-generated method stub
+		return genderDao.findByGender(gender);
+	}
+
+
 
 }

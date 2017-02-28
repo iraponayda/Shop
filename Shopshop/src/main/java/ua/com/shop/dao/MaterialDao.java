@@ -6,4 +6,8 @@ import ua.com.shop.entity.Material;
 
 public interface MaterialDao extends JpaRepository<Material, Integer> {
 
+
+
+	Material findByMaterial(String material);
+
 }

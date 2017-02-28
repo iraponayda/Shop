@@ -35,4 +35,9 @@ public class CountryServiceImpl implements CountryService {
 		return countryDao.findAll();
 	}
 
+	public Country findByName(String name) {
+		
+		return countryDao.findByName(name);
+	}
+
 }

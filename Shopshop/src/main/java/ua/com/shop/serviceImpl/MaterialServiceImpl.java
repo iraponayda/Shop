@@ -34,4 +34,11 @@ public class MaterialServiceImpl implements MaterialService {
 		
 	}
 
+	public Material findByMaterial(String material) {
+		// TODO Auto-generated method stub
+		return materialDao.findByMaterial(material);
+	}
+
+	
+
 }

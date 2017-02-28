@@ -1,9 +1,14 @@
 package ua.com.shop.controller.admin;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +19,7 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import ua.com.shop.entity.Country;
 import ua.com.shop.service.CountryService;
+import ua.com.shop.validator.CountryValidator;
 
 
 
@@ -24,10 +30,19 @@ public class CountryController {
 	@Autowired
 	private CountryService countryService;
 	
+	
+	@InitBinder("country")
+	protected void bind(WebDataBinder binder){
+		binder.setValidator(new CountryValidator(countryService));
+	}
+	
+	
 	@ModelAttribute("country")
 	public Country getForm(){
 		return new Country();
 	}
+	
+	
 	
 	@GetMapping
 	public String show(Model model){
@@ -41,7 +56,11 @@ public class CountryController {
 	}
 	
 	@PostMapping
-	public String save(@ModelAttribute("country") Country country, SessionStatus status){
+	public String save(@ModelAttribute("country") @Valid Country country, BindingResult br, Model model, SessionStatus status){
+		
+		if(br.hasErrors()){
+			return show(model);
+		}
 		countryService.save(country);
 		status.setComplete();
 		return "redirect:/admin/country";

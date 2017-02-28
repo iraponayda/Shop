@@ -10,5 +10,6 @@ public interface CategoryService {
 	List<Category> findAll();
 	Category findOne(int id);
 	void delete(int id);
+	Category findByName(String name);
 	
 }

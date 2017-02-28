@@ -38,5 +38,10 @@ public class AgeServiceImpl implements AgeService{
 		ageDao.save(age);
 	}
 
+	public Age findByName(String age) {
+		// TODO Auto-generated method stub
+		return ageDao.findByAge(age);
+	}
+
 }
 

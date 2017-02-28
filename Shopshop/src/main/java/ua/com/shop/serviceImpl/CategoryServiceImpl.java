@@ -38,4 +38,9 @@ public class CategoryServiceImpl implements CategoryService {
 		
 	}
 
+	public Category findByName(String name) {
+		// TODO Auto-generated method stub
+		return categoryDao.findByName(name);
+	}
+
 }

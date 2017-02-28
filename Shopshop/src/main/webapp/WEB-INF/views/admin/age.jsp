@@ -6,6 +6,7 @@
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
 			<button type="button" class="navbar-toggle" data-toggle="collapse"
+			
 				data-target="#myNavbar">
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
@@ -34,6 +35,9 @@
 		<div class="row">
 			<div class="col-md-12 col-xs-12">
 				<form:form class="form-horizontal" action="/admin/age" method="POST" modelAttribute="age">
+					<div class="form-group">
+						<label class="col-sm-10 col-sm-offset-2 control-label" for="name" style="color:red;text-align:left;"><form:errors path="age"/></label>
+					</div>
 					<div class="form-group">
     					<label for="name" class="col-sm-2 control-label">Age</label>
     					<div class="col-sm-10">

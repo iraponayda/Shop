@@ -11,4 +11,6 @@ public interface MaterialService {
 	List<Material> findAll();
 	Material findOne(int id);
 	void delete(int id);
+	
+	Material findByMaterial(String material);
 }

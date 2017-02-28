@@ -9,5 +9,6 @@ public interface AgeService {
 	List<Age> findAll();
 	Age findOne(int id);
 	void delete (int id);
+	Age findByName(String age);
 
 }

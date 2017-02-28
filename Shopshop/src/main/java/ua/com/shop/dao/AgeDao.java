@@ -6,6 +6,8 @@ import ua.com.shop.entity.Age;
 
 public interface AgeDao extends JpaRepository<Age, Integer>{
 
+	Age findByAge(String age);
+
 
 	
 }

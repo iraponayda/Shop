@@ -6,4 +6,6 @@ import ua.com.shop.entity.Category;
 
 public interface CategoryDao extends JpaRepository<Category, Integer> {
 
+	Category findByName(String name);
+
 }

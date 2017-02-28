@@ -6,6 +6,8 @@ import ua.com.shop.entity.Country;
 
 public interface CountryDao extends JpaRepository<Country, Integer>{
 
+	Country findByName(String name);
+
 	
 
 }

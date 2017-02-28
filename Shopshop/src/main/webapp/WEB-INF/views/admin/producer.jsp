@@ -33,6 +33,9 @@
 			<div class="col-md-12 col-xs-12">
 				<form:form class="form-horizontal" action="/admin/producer" method="POST" modelAttribute="producer">
 					<div class="form-group">
+						<label class="col-sm-10 col-sm-offset-2 control-label" for="name" style="color:red;text-align:left;"><form:errors path="country"/></label>
+					</div>
+					<div class="form-group">
     					<label for="country" class="col-sm-2 control-label">Country</label>
     					<div class="col-sm-10">
       						<form:select class="form-control" path="country" id="country" items="${countries}" itemValue="id" itemLabel="name"/>

@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ua.com.shop.dao.ProducerDao;
+
+import ua.com.shop.entity.Country;
 import ua.com.shop.entity.Producer;
 import ua.com.shop.service.ProducerService;
 @Service
@@ -15,10 +17,6 @@ public class ProducerServiceImpl implements ProducerService {
 	@Autowired
 	private ProducerDao producerDao;
 	
-	public void save(Producer producer) {
-		producerDao.save(producer);// TODO Auto-generated method stub
-		
-	}
 
 	public List<Producer> findAll() {
 		// TODO Auto-generated method stub
@@ -34,5 +32,19 @@ public class ProducerServiceImpl implements ProducerService {
 		producerDao.delete(id);// TODO Auto-generated method stub
 		
 	}
+	
+	
+
+	public Producer findUnique(String name, Country country) {
+		// TODO Auto-generated method stub
+		return producerDao.findUnique(name, country.getId());
+	}
+
+	public void save(Producer producer) {
+		producerDao.save(producer);
+		
+	}
+
+	
 	
 }

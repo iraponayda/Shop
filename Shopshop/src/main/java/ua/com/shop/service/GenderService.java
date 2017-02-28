@@ -10,4 +10,5 @@ public interface GenderService {
 	List<Gender> findAll();
 	Gender findOne(int id);
 	void delete(int id);
+	Gender findByName(String gender);
 }
