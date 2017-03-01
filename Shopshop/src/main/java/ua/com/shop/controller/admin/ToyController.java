@@ -1,8 +1,11 @@
 package ua.com.shop.controller.admin;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -12,7 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
+import dto.ToyForm;
 import ua.com.shop.editor.AgeEditor;
 import ua.com.shop.editor.GenderEditor;
 import ua.com.shop.editor.MaterialEditor;
@@ -30,6 +35,7 @@ import ua.com.shop.service.MaterialService;
 import ua.com.shop.service.ProducerService;
 import ua.com.shop.service.SubcategoryService;
 import ua.com.shop.service.ToyService;
+import ua.com.shop.validator.ToyValidator;
 
 @Controller
 @RequestMapping("/admin/toy")
@@ -54,6 +60,9 @@ public class ToyController {
 	@Autowired
 	private AgeService ageService;
 	
+	
+	
+	
 	@InitBinder("toy")
 	protected void bind(WebDataBinder binder){
 		binder.registerCustomEditor(Producer.class, new ProducerEditor(producerService));
@@ -61,11 +70,12 @@ public class ToyController {
 		binder.registerCustomEditor(Gender.class, new GenderEditor(genderService));
 		binder.registerCustomEditor(Material.class, new MaterialEditor(materialService));
 		binder.registerCustomEditor(Age.class, new AgeEditor(ageService));
+		binder.setValidator(new ToyValidator(toyService));
 	}
 	
 	@ModelAttribute("toy")
-	public Toy getForm(){
-		return new Toy();
+	public ToyForm getForm(){
+		return new ToyForm();
 	}
 	
 	
@@ -87,14 +97,15 @@ public class ToyController {
 	}
 	
 	@PostMapping
-	public String save(@ModelAttribute("toy") Toy toy){
-
+	public String save(@ModelAttribute("toy") @Valid ToyForm toy, BindingResult br, Model model, SessionStatus status){
+		if(br.hasErrors()) return show(model);
 		toyService.save(toy);
+		status.setComplete();
 		return "redirect:/admin/toy";
 	}
 	@GetMapping("/update/{id}")
 	public String update(@PathVariable int id, Model model){
-		model.addAttribute("toy", toyService.findOne(id));
+		model.addAttribute("toy", toyService.findForm(id));
 		return show(model);
 	}
 	

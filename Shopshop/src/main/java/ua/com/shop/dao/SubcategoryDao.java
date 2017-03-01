@@ -17,4 +17,7 @@ public interface SubcategoryDao extends JpaRepository<Subcategory, Integer> {
 	
 	@Query("SELECT s FROM Subcategory s LEFT JOIN FETCH s.category WHERE s.id = ?1")
 	Subcategory findOne(int id);
+
+	@Query("SELECT s FROM Subcategory s WHERE s.name=?1 and s.category.id=?2")
+	Subcategory findUnique(String name, int id);
 }

@@ -35,15 +35,24 @@
 			<div class="col-md-12 col-xs-12">
 				<form:form class="form-horizontal" action="/admin/toy" method="POST" modelAttribute="toy">
 					<div class="form-group">
+						<label for="toy" style="color:red;text-align:left;" class="col-sm-10 col-sm-offset-2 control-label"><form:errors path="name"/></label>
+					</div>
+					<div class="form-group">
     					<label for="producer" class="col-sm-2 control-label">Producer</label>
     					<div class="col-sm-10">
       						<form:select class="form-control" path="producer" id="producer" items="${producers}" itemValue="id" itemLabel="name"/>
     					</div>
   					</div>
-					<div class="form-group">
+  					<div class="form-group">
     					<label for="toy" class="col-sm-2 control-label">Toy</label>
     					<div class="col-sm-10">
       						<form:input type="text" class="form-control" path="name" id="toy"/>
+    					</div>
+  					</div>
+  					<div class="form-group">
+    					<label for="price" class="col-sm-2 control-label">Price</label>
+    					<div class="col-sm-10">
+      						<form:input type="text" class="form-control" path="price" id="price"/>
     					</div>
   					</div>
   					<div class="form-group">
@@ -80,9 +89,10 @@
 		</div>
 		<div class="row">
 			<div class="col-md-2 col-xs-2"><h4>Toy</h4></div>
+			<div class="col-md-1 col-xs-1"><h4>Price</h4></div>
 			<div class="col-md-2 col-xs-2"><h4>Subcategory</h4></div>
 			<div class="col-md-2 col-xs-2"><h4>Producer</h4></div>
-			<div class="col-md-2 col-xs-2"><h4>Gender</h4></div>
+			<div class="col-md-1 col-xs-1"><h4>Gender</h4></div>
 			<div class="col-md-1 col-xs-1"><h4>Age</h4></div>
 			<div class="col-md-1 col-xs-1"><h4>Material</h4></div>
 			<div class="col-md-1 col-xs-1"><h4>Update</h4></div>
@@ -91,9 +101,10 @@
 			<c:forEach items="${toys}" var="toy">
 				<div class="row">
 					<div class="col-md-2 col-xs-2">${toy.name}</div>
+					<div class="col-md-1 col-xs-1">${toy.price}</div>
 					<div class="col-md-2 col-xs-2">${toy.subcategory.name}</div>
 					<div class="col-md-2 col-xs-2">${toy.producer.name}</div>
-					<div class="col-md-2 col-xs-2">${toy.gender.gender}</div>
+					<div class="col-md-1 col-xs-1">${toy.gender.gender}</div>
 					<div class="col-md-1 col-xs-1">${toy.age.age}</div>
 					<div class="col-md-1 col-xs-1">${toy.material.material}</div>
 					<div class="col-md-1 col-xs-1"><a class="btn btn-warning" href="/admin/toy/update/${toy.id}">update</a></div>

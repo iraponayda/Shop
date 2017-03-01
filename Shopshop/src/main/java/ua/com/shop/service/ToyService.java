@@ -2,13 +2,21 @@ package ua.com.shop.service;
 
 import java.util.List;
 
+import dto.ToyForm;
+import ua.com.shop.entity.Age;
+import ua.com.shop.entity.Gender;
+import ua.com.shop.entity.Material;
+import ua.com.shop.entity.Producer;
+import ua.com.shop.entity.Subcategory;
 import ua.com.shop.entity.Toy;
 
 public interface ToyService {
-	void save(Toy toy);
+	void save(ToyForm entity);
 	List<Toy> findAll();
 	Toy findOne(int id);
 	void delate (int id);
 		List<Toy> findByGenderId(int id);
 	List<Toy> findByAgeId(int id);
+	Toy findUnique(String name, Age age, Gender gender, Material material, String price, Subcategory subcategory, Producer producer);
+	ToyForm findForm(int id);
 }

@@ -13,7 +13,7 @@ public class Main {
 		ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("/META-INF/appContext.xml");
 		
 		ToyService toyService = (ToyService) context.getBean(ToyServiceImpl.class);
-		toyService.save(new Toy());
+		
 		context.close();
 	}
 

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ua.com.shop.dao.SubcategoryDao;
+import ua.com.shop.entity.Category;
 import ua.com.shop.entity.Subcategory;
 import ua.com.shop.service.SubcategoryService;
 @Service
@@ -32,6 +33,11 @@ public class SubcategoryServiceImpl implements SubcategoryService{
 	public void delete(int id) {
 		subcategoryDao.delete(id);// TODO Auto-generated method stub
 		
+	}
+
+	public Subcategory findUnique(String name, Category category) {
+		// TODO Auto-generated method stub
+		return subcategoryDao.findUnique(name, category.getId());
 	}
 
 }
