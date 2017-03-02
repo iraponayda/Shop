@@ -22,15 +22,15 @@ public class ToyValidator implements Validator{
 	public ToyValidator(ToyService toyService) {
 		this.toyService = toyService;
 	}
-
+	
 	public boolean supports(Class<?> clazz) {
 		
 		return ToyForm.class.equals(clazz);
 	}
-
+	
 	public void validate(Object target, Errors errors) {
 		ToyForm form = (ToyForm) target;
-		if(!REG.matcher(form.getName()).matches()){
+		if(!REG.matcher(form.getPrice()).matches()){
 			errors.rejectValue("name", "", "Enter number with . or , or only numbers");
 		}
 		if(errors.getFieldError("name")==null){

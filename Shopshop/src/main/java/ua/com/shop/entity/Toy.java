@@ -1,5 +1,6 @@
 package ua.com.shop.entity;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -24,7 +25,7 @@ public class Toy {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	private String name;
-	private double price;
+	private BigDecimal price;
 		
 	@ManyToOne(fetch=FetchType.LAZY)
 	private Producer producer;
@@ -104,11 +105,11 @@ public class Toy {
 		this.users = users;
 	}
 
-	public double getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 
-	public void setPrice(double price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 

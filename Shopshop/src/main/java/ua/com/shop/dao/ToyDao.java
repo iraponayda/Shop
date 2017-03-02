@@ -1,5 +1,6 @@
 package ua.com.shop.dao;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -24,7 +25,10 @@ List<Toy> findAll();
 Toy findOne(int id);
 
 @Query("SELECT t FROM Toy t WHERE t.name=?1 and t.age.id=?2 and t.gender.id=?3 and t.material.id=?4 and t.price=?5 and t.subcategory.id=?6 and t.producer.id=?7")
-Toy findUnique(String name, int ageId, int genderId, int materialId, Double double1, int subcategoryId, int producerId);
+Toy findUnique(String name, int id, int id2, int id3, BigDecimal bigDecimal, int id4, int id5);
+
+
+//Toy findUnique(String name, int ageId, int genderId, int materialId, BigDecimal big, int subcategoryId, int producerId);
 
 	 
 }

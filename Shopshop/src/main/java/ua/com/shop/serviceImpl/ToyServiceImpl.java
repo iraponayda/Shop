@@ -1,5 +1,6 @@
 package ua.com.shop.serviceImpl;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +65,7 @@ public class ToyServiceImpl implements ToyService {
 	public Toy findUnique(String name, Age age, Gender gender, Material material, String price,
 			Subcategory subcategory, Producer producer) {
 		
-		return toyDao.findUnique(name, age.getId(), gender.getId(), material.getId(), new Double(price.replace(',', '.')), subcategory.getId(), producer.getId());
+		return toyDao.findUnique(name, age.getId(), gender.getId(), material.getId(), new BigDecimal(price.replace(',', '.')), subcategory.getId(), producer.getId());
 	}
 
 	public void save(ToyForm form) {
@@ -73,7 +74,7 @@ public class ToyServiceImpl implements ToyService {
 		entity.setAge(form.getAge());
 		entity.setGender(form.getGender());
 		entity.setMaterial(form.getMaterial());
-		entity.setPrice(Double.parseDouble(form.getPrice().replace(',', '.')));
+		entity.setPrice(new BigDecimal(form.getPrice().replace(',', '.')));
 		entity.setSubcategory(form.getSubcategory());
 		entity.setProducer(form.getProducer());
 		toyDao.save(entity);
