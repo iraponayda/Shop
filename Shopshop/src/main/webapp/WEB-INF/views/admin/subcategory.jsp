@@ -34,6 +34,7 @@
 			<div class="col-md-12 col-xs-12">
 				<form:form class="form-horizontal" action="/admin/subcategory" method="POST" modelAttribute="subcategory">
 					<div class="form-group">
+						<label class="col-sm-10 col-sm-offset-2 control-label" for="name" style="color:red;text-align:left;"><form:errors path="name"/></label>
 						<label class="col-sm-10 col-sm-offset-2 control-label" for="name" style="color:red;text-align:left;"><form:errors path="category"/></label>
 					</div>
 					<div class="form-group">

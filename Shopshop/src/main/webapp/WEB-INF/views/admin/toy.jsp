@@ -36,6 +36,7 @@
 				<form:form class="form-horizontal" action="/admin/toy" method="POST" modelAttribute="toy">
 					<div class="form-group">
 						<label for="toy" style="color:red;text-align:left;" class="col-sm-10 col-sm-offset-2 control-label"><form:errors path="name"/></label>
+						<label for="toy" style="color:red;text-align:left;" class="col-sm-10 col-sm-offset-2 control-label"><form:errors path="age"/></label>
 					</div>
 					<div class="form-group">
     					<label for="producer" class="col-sm-2 control-label">Producer</label>
