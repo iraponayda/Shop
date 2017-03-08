@@ -2,7 +2,10 @@ package ua.com.shop.controller.admin;
 
 import javax.validation.Valid;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,12 +19,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import ua.com.shop.dto.filter.SimpleFilter;
 import ua.com.shop.entity.Age;
 import ua.com.shop.entity.Country;
 import ua.com.shop.service.AgeService;
 import ua.com.shop.validator.AgeValidator;
 import ua.com.shop.validator.CountryValidator;
-
+import static ua.com.shop.util.ParamBuilder.*;
 
 @Controller
 @RequestMapping("/admin/age")
@@ -35,37 +39,47 @@ public class AgeController {
 		binder.setValidator(new AgeValidator(ageService));
 	}
 	
+	@ModelAttribute("filter")
+	public SimpleFilter getFilter(){
+		return new SimpleFilter();
+	}
+	
 	@ModelAttribute("age")
 	public Age getForm(){
 		return new Age();
 	}
 	
 	@GetMapping
-	public String show(Model model){
-		model.addAttribute("ages", ageService.findAll());
+	public String show(Model model, @PageableDefault Pageable pageable, @ModelAttribute("filter") SimpleFilter filter){
+		model.addAttribute("page", ageService.findAll(pageable, filter));
 		return "admin-age";
 	}
+	
+	
 	@GetMapping("/delete/{id}")
-	public String delete(@PathVariable int id){
+	public String delete(@PathVariable int id, @PageableDefault Pageable pageable, @ModelAttribute("filter") SimpleFilter filter){
 		ageService.delete(id);
-		return "redirect:/admin/age";
+		return "redirect:/admin/age"+getParams(pageable, filter);
 	}
 	
+
+	
 	@PostMapping
-	public String save(@ModelAttribute("age") @Valid Age age, BindingResult br, Model model, SessionStatus status){
+	public String save(@ModelAttribute("age") @Valid Age age, BindingResult br, Model model, SessionStatus status,  @PageableDefault Pageable pageable, @ModelAttribute("filter") SimpleFilter filter){
 		
 		if(br.hasErrors()){
-			return show(model);
+			return show(model, pageable, filter);
 		}
 		ageService.save(age);
 		status.setComplete();
-		return "redirect:/admin/age";
+		return "redirect:/admin/age"+getParams(pageable, filter);
+	}
+	@GetMapping("/update/{id}")
+	public String update(@PathVariable int id, Model model, @PageableDefault Pageable pageable, @ModelAttribute("filter") SimpleFilter filter){
+		model.addAttribute("age", ageService.findOne(id));
+		show(model, pageable, filter);
+		return "admin-age";
 	}
 	
-	@GetMapping("/update/{id}")
-	public String update(@PathVariable int id, Model model){
-		model.addAttribute("age", ageService.findOne(id));
-		return show(model);
-	}
 
 }

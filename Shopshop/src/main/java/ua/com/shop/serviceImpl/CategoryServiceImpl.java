@@ -3,11 +3,15 @@ package ua.com.shop.serviceImpl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import ua.com.shop.dao.CategoryDao;
+import ua.com.shop.dto.filter.SimpleFilter;
 import ua.com.shop.entity.Category;
 import ua.com.shop.service.CategoryService;
+import ua.com.shop.specification.CategorySpecification;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -41,6 +45,12 @@ public class CategoryServiceImpl implements CategoryService {
 	public Category findByName(String name) {
 		// TODO Auto-generated method stub
 		return categoryDao.findByName(name);
+	}
+
+	@Override
+	public Page<Category> findAll(Pageable pageable, SimpleFilter filter) {
+		
+		return categoryDao.findAll(new CategorySpecification(filter), pageable);
 	}
 
 }

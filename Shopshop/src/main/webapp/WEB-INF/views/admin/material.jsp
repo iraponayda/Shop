@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+    <%@ taglib uri="/WEB-INF/custom.tld" prefix="custom"%>
 <div class="row">
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
@@ -20,18 +21,27 @@
 					<li><a href="/admin/country">Country</a></li>
 					<li><a href="/admin/age">Age</a></li>
 					<li><a href="/admin/gender">Gender</a></li>
-					<li class="active"><a href="/admin/material">Material</a></li>
+					<li class="active"><a href="/admin/material<custom:allParams/>">Material</a></li>
 				</ul>
 			</div>
 		</div>
 	</nav>
 </div>    
 <div class="row">
-	<div class="col-md-3 col-xs-12"></div>
+	<div class="col-md-3 col-xs-12">
+		<form:form class="form-inline" action="/admin/material" method="GET" modelAttribute="filter">
+			<custom:hiddenInputs excludeParams="search"/>
+			<div class="form-group">
+				<form:input path="search" class="form-control" placeholder="Search"/>
+			</div>
+			<button type="submit" class="btn btn-primary">Ok</button>
+		</form:form>
+	</div>
 	<div class="col-md-7 col-xs-12">
 		<div class="row">
 			<div class="col-md-12 col-xs-12">
 				<form:form class="form-horizontal" action="/admin/material" method="POST" modelAttribute="material">
+					<custom:hiddenInputs excludeParams="material"/>
 					<div class="form-group">
 						<label class="col-sm-10 col-sm-offset-2 control-label" for="name" style="color:red;text-align:left;"><form:errors path="material"/></label>
 					</div>
@@ -54,16 +64,38 @@
 			<div class="col-md-4 col-xs-4"><h3>Update</h3></div>
 			<div class="col-md-4 col-xs-4"><h3>Delete</h3></div>
 	</div>
-	<c:forEach items="${materials}" var="material">
+	<c:forEach items="${page.content}" var="material">
 		<div class="row">
 			<div class="col-md-4 col-xs-4">${material.material}</div>
-			<div class="col-md-4 col-xs-4"><a class="btn btn-warning" href="/admin/material/update/${material.id}">update</a></div>
-			<div class="col-md-4 col-xs-4"><a class="btn btn-danger" href="/admin/material/delete/${material.id}">delete</a></div>
+			<div class="col-md-4 col-xs-4"><a class="btn btn-warning" href="/admin/material/update/${material.id}<custom:allParams/>">update</a></div>
+			<div class="col-md-4 col-xs-4"><a class="btn btn-danger" href="/admin/material/delete/${material.id}<custom:allParams/>">delete</a></div>
 		</div>
 		
 	</c:forEach>
 	</div>
 	<div class="col-md-2 col-xs-12">
+		<div class="row">
+					<div class="col-md-6 col-xs-6 text-center">
+						<div class="dropdown">
+							<button class="btn btn-primary dropdown-toggle" type="button"
+								data-toggle="dropdown">
+								Sort <span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu">
+								<custom:sort innerHtml="Name asc" paramValue="material" />
+								<custom:sort innerHtml="Name desc" paramValue="material,desc" />
+							</ul>
+						</div>
+					</div>
+					<div class="col-md-6 col-xs-6 text-center">
+						<custom:size posibleSizes="1,2,5,10" size="${page.size}" />
+					</div>
+				</div>
 	</div>
 </div>
-    
+<div class="row">
+	<div class="col-md-12 col-xs-12 text-center">
+		<custom:pageable page="${page}" cell="<li></li>"
+			container="<ul class='pagination'></ul>" />
+	</div>
+</div>
