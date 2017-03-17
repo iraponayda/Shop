@@ -44,9 +44,6 @@ public class Toy {
 	@ManyToOne(fetch=FetchType.LAZY)
 	private Material material;
 	
-	@ManyToMany
-	@JoinTable(name = "toy_user", joinColumns=@JoinColumn(name = "id_toy"), inverseJoinColumns= @JoinColumn(name = "id_user"))
-	private List<User> users;
 	
 	public Toy() {
 		
@@ -97,13 +94,6 @@ public class Toy {
 		this.gender = gender;
 	}
 
-	public List<User> getUsers() {
-		return users;
-	}
-
-	public void setUsers(List<User> users) {
-		this.users = users;
-	}
 
 	public BigDecimal getPrice() {
 		return price;
