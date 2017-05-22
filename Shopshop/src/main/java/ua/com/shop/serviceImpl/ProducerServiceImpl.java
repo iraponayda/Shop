@@ -53,6 +53,7 @@ public class ProducerServiceImpl implements ProducerService {
 	public Page<Producer> findAll(Pageable pageable, ProducerFilter filter) {
 		return producerDao.findAll(new ProducerSpecification(filter), pageable);
 	}
+
 	
 
 

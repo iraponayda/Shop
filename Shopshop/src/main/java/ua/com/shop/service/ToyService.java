@@ -2,7 +2,11 @@ package ua.com.shop.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import dto.ToyForm;
+import ua.com.shop.dto.filter.ToyFilter;
 import ua.com.shop.entity.Age;
 import ua.com.shop.entity.Gender;
 import ua.com.shop.entity.Material;
@@ -19,4 +23,6 @@ public interface ToyService {
 	List<Toy> findByAgeId(int id);
 	Toy findUnique(String name, Age age, Gender gender, Material material, String price, Subcategory subcategory, Producer producer);
 	ToyForm findForm(int id);
+	
+	Page<Toy> findAll(Pageable pageable, ToyFilter filter);
 }

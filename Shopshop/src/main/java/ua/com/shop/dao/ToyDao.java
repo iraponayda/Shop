@@ -3,13 +3,16 @@ package ua.com.shop.dao;
 import java.math.BigDecimal;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import ua.com.shop.entity.Toy;
 
-public interface ToyDao extends JpaRepository<Toy, Integer>{
+public interface ToyDao extends JpaRepository<Toy, Integer>, JpaSpecificationExecutor<Toy>{
 
 	
 
@@ -29,6 +32,10 @@ Toy findUnique(String name, int id, int id2, int id3, BigDecimal bigDecimal, int
 
 
 //Toy findUnique(String name, int ageId, int genderId, int materialId, BigDecimal big, int subcategoryId, int producerId);
+
+@Query(value="SELECT t FROM Toy t LEFT JOIN FETCH t.producer LEFT JOIN FETCH t.subcategory LEFT JOIN FETCH t.gender LEFT JOIN FETCH t.age LEFT JOIN FETCH t.material",
+countQuery="SELECT count(t.id) FROM Toy t")
+Page<Toy> findAll(Pageable pageable);
 
 	 
 }

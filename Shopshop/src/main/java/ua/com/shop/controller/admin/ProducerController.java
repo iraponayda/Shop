@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import ua.com.shop.dto.filter.ProducerFilter;
-import ua.com.shop.dto.filter.SimpleFilter;
+
 import ua.com.shop.editor.CountryEditor;
 import ua.com.shop.entity.Category;
 import ua.com.shop.entity.Country;
@@ -64,7 +64,6 @@ public class ProducerController {
 	@GetMapping
 	public String show(Model model, @PageableDefault Pageable pageable, @ModelAttribute("filter") ProducerFilter filter){
 		model.addAttribute("page", producerService.findAll(pageable, filter));
-		model.addAttribute("producers", producerService.findAll());
 		model.addAttribute("countries", countryService.findAll());
 		return "admin-producer";
 	}
@@ -99,7 +98,7 @@ public class ProducerController {
 		
 		if(!filter.getCountryIds().isEmpty()){
 			for (int id : filter.getCountryIds()) {
-				buffer.append("&ingredientIds=");
+				buffer.append("&countryIds=");
 				buffer.append(id);
 			}
 		}

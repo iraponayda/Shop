@@ -4,18 +4,25 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import dto.ToyForm;
 import ua.com.shop.dao.AgeDao;
 import ua.com.shop.dao.ToyDao;
+import ua.com.shop.dto.filter.ToyFilter;
 import ua.com.shop.entity.Age;
 import ua.com.shop.entity.Gender;
 import ua.com.shop.entity.Material;
 import ua.com.shop.entity.Producer;
 import ua.com.shop.entity.Subcategory;
 import ua.com.shop.entity.Toy;
+import ua.com.shop.service.FileWriter;
 import ua.com.shop.service.ToyService;
+import ua.com.shop.specification.ToySpecification;
+import ua.com.shop.service.FileWriter.Folder;
 
 @Service
 public class ToyServiceImpl implements ToyService {
@@ -24,6 +31,9 @@ public class ToyServiceImpl implements ToyService {
 	private ToyDao toyDao;
 	
 	@Autowired AgeDao ageDao;
+	
+	@Autowired
+	private FileWriter fileWriter;
 	
 	
 
@@ -68,17 +78,26 @@ public class ToyServiceImpl implements ToyService {
 		return toyDao.findUnique(name, age.getId(), gender.getId(), material.getId(), new BigDecimal(price.replace(',', '.')), subcategory.getId(), producer.getId());
 	}
 
+
+	
+	
+	@Override
 	public void save(ToyForm form) {
 		Toy entity = new Toy();
-		entity.setName(form.getName());
-		entity.setAge(form.getAge());
-		entity.setGender(form.getGender());
-		entity.setMaterial(form.getMaterial());
-		entity.setPrice(new BigDecimal(form.getPrice().replace(',', '.')));
-		entity.setSubcategory(form.getSubcategory());
-		entity.setProducer(form.getProducer());
-		toyDao.save(entity);
 		
+		MultipartFile file = form.getFile();
+		entity = toyDao.saveAndFlush(entity);
+		if(fileWriter.write(Folder.TOY, file, form.getId())){
+			entity.setVersion(form.getVersion()+1);
+			entity.setName(form.getName());
+			entity.setAge(form.getAge());
+			entity.setGender(form.getGender());
+			entity.setMaterial(form.getMaterial());
+			entity.setPrice(new BigDecimal(form.getPrice().replace(',', '.')));
+			entity.setSubcategory(form.getSubcategory());
+			entity.setProducer(form.getProducer());
+			toyDao.save(entity);
+		}
 	
 		
 	}
@@ -95,6 +114,12 @@ public class ToyServiceImpl implements ToyService {
 		form.setProducer(entity.getProducer());
 		form.setId(entity.getId());
 		return form;
+	}
+
+	@Override
+	public Page<Toy> findAll(Pageable pageable, ToyFilter filter) {
+		
+		return toyDao.findAll(new ToySpecification(filter), pageable);
 	}
 
 }

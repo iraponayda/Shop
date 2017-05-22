@@ -22,7 +22,7 @@ public class Producer {
 	@OneToMany(mappedBy="producer")
 	private List<Toy> toys;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	private Country country;
 	
 	public Producer() {

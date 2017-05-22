@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 
 
 import ua.com.shop.entity.Producer;
+import ua.com.shop.entity.Subcategory;
 import ua.com.shop.specification.ProducerSpecification;
 
 
@@ -27,5 +28,10 @@ public interface ProducerDao extends JpaRepository<Producer, Integer>,  JpaSpeci
 	
 	@Query(value="SELECT p FROM Producer p LEFT JOIN FETCH p.country",
 			countQuery="SELECT count(p.id) FROM Producer p")
-	Page<Producer> findAll(ProducerSpecification producerSpecification, Pageable pageable);
+	Page<Producer> findAll(Pageable pageable);
+
+	
+	
+	
+	
 }

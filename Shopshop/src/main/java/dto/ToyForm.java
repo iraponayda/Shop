@@ -2,6 +2,10 @@ package dto;
 
 
 
+import javax.persistence.Transient;
+
+import org.springframework.web.multipart.MultipartFile;
+
 import ua.com.shop.entity.Age;
 import ua.com.shop.entity.Gender;
 import ua.com.shop.entity.Material;
@@ -18,6 +22,23 @@ public class ToyForm {
 	private Gender gender;
 	private Material material;
 	private Producer producer;
+	
+	private int version;
+	
+	private MultipartFile file;
+	
+	public MultipartFile getFile() {
+		return file;
+	}
+	public void setFile(MultipartFile file) {
+		this.file = file;
+	}
+	public int getVersion() {
+		return version;
+	}
+	public void setVersion(int version) {
+		this.version = version;
+	}
 	
 	public int getId() {
 		return id;

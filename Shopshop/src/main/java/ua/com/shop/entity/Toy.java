@@ -1,18 +1,19 @@
 package ua.com.shop.entity;
 
 import java.math.BigDecimal;
-import java.util.List;
+
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.Transient;
+
+import org.springframework.web.multipart.MultipartFile;
 
 
 @NamedQuery(name = "findByPrice", query = "select t from Toy t where t.price =:price")
@@ -44,7 +45,26 @@ public class Toy {
 	@ManyToOne(fetch=FetchType.LAZY)
 	private Material material;
 	
+	private int version;
+	@Transient
+	private transient MultipartFile file;
 	
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
+	}
+
+	public MultipartFile getFile() {
+		return file;
+	}
+
+	public void setFile(MultipartFile file) {
+		this.file = file;
+	}
+
 	public Toy() {
 		
 		

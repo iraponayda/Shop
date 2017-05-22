@@ -22,6 +22,7 @@ public class ProducerValidator implements Validator{
 		return Producer.class.equals(clazz);
 	}
 
+	@Override
 	public void validate(Object target, Errors errors) {
 		Producer producer = (Producer) target;
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "", "Can't be empty");

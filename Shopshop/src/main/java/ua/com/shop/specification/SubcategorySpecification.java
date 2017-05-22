@@ -10,42 +10,40 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.data.jpa.domain.Specification;
 
-import ua.com.shop.dto.filter.ProducerFilter;
-import ua.com.shop.dto.filter.SimpleFilter;
+import ua.com.shop.dto.filter.SubcategoryFilter;
 import ua.com.shop.entity.Producer;
 import ua.com.shop.entity.Subcategory;
 
-public class ProducerSpecification implements Specification<Producer>{
+public class SubcategorySpecification implements Specification<Subcategory>{
 
-
-	private final ProducerFilter filter;
+	private final SubcategoryFilter filter;
 	
 	private final List<Predicate> predicates = new ArrayList<>();
 	
-	public ProducerSpecification(ProducerFilter filter) {
+	public SubcategorySpecification(SubcategoryFilter filter) {
 		this.filter = filter;
 	}
 
-	private void filterByCountry(Root<Producer> root, CriteriaQuery<?> query, CriteriaBuilder cb){
-		if(!filter.getCountryIds().isEmpty()){
-			predicates.add(root.get("country").in(filter.getCountryIds()));
+	private void filterByCategory(Root<Subcategory> root, CriteriaQuery<?> query, CriteriaBuilder cb){
+		if(!filter.getCategoryIds().isEmpty()){
+			predicates.add(root.get("category").in(filter.getCategoryIds()));
 		}
 	}
 	
 	
-	private void fetch(Root<Producer> root, CriteriaQuery<?> query){
+	private void fetch(Root<Subcategory> root, CriteriaQuery<?> query){
 		if(!query.getResultType().equals(Long.class)){
 			query.distinct(true);
-			root.fetch("country");
+			root.fetch("category");
 		}
 	}
 
 	
 
 	@Override
-	public Predicate toPredicate(Root<Producer> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+	public Predicate toPredicate(Root<Subcategory> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
 		fetch(root, query);
-		filterByCountry(root, query, cb);
+		filterByCategory(root, query, cb);
 		if(predicates.isEmpty())return null;
 		Predicate[] array = new Predicate[predicates.size()];
 		array = predicates.toArray(array);

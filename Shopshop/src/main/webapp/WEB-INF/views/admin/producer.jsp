@@ -52,10 +52,9 @@
 		<div class="row">
 			<div class="col-md-12 col-xs-12">
 				<form:form class="form-horizontal" action="/admin/producer" method="POST" modelAttribute="producer">
-					<custom:hiddenInputs excludeParams="producer, country"/>
+					<custom:hiddenInputs excludeParams="country, producer"/>
 					<div class="form-group">
 						<label class="col-sm-10 col-sm-offset-2 control-label" for="name" style="color:red;text-align:left;"><form:errors path="name"/></label>
-						<label class="col-sm-10 col-sm-offset-2 control-label" for="name" style="color:red;text-align:left;"><form:errors path="country"/></label>
 					</div>
 					<div class="form-group">
     					<label for="country" class="col-sm-2 control-label">Country</label>
@@ -63,10 +62,16 @@
       						<form:select class="form-control" path="country" id="country" items="${countries}" itemValue="id" itemLabel="name"/>
     					</div>
   					</div>
+  					
+  					<div class="form-group">
+						<label class="col-sm-10 col-sm-offset-2 control-label"
+							for="name" style="color: red; text-align: left;"><form:errors
+								path="name" /></label>
+					</div>
 					<div class="form-group">
-    					<label for="producer" class="col-sm-2 control-label">Producer</label>
+    					<label for="name" class="col-sm-2 control-label">Producer</label>
     					<div class="col-sm-10">
-      						<form:input type="text" class="form-control" path="name" id="producer"/>
+      						<form:input type="text" class="form-control" path="name" id="name"/>
     					</div>
   					</div>
   					<div class="form-group">
