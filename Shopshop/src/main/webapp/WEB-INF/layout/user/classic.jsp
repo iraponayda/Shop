@@ -9,7 +9,13 @@
 <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
 <script src="/resources/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/resources/css/chosen.min.css">
+<link href="https://fonts.googleapis.com/css?family=Chewy|Comfortaa|Lobster|Marmelad|Neucha" rel="stylesheet">
+
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		
+		<link href="/resources/css/style.css" rel="stylesheet">
 <script src="/resources/js/chosen.jquery.min.js"></script>
+
 <style type="text/css">
 body {
 	padding-bottom: 70px; 
